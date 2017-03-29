@@ -1,7 +1,6 @@
 package com.example.administrator.pets;
 
 import android.content.ContentUris;
-import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.Intent;
 import android.content.Loader;
@@ -67,16 +66,6 @@ public class CatalogActivity extends AppCompatActivity implements android.app.Lo
         getLoaderManager().initLoader(PET_LOADER,null,this);
     }
 
-    private void insertPet() {
-        ContentValues values = new ContentValues();
-        values.put(PetEntry.COLUMN_PET_NAME, "Toto");
-        values.put(PetEntry.COLUMN_BREED, "Terrier");
-        values.put(PetEntry.COLUMN_GENDER, PetEntry.MALE);
-        values.put(PetEntry.COLUMN_WEIGHT, 7);
-
-        Uri newUri = getContentResolver().insert(PetEntry.CONTENT_URI, values);
-    }
-
     private void deleteAllPets() {
         int rowsDeleted = getContentResolver().delete(PetEntry.CONTENT_URI, null, null);
     }
@@ -131,7 +120,8 @@ public class CatalogActivity extends AppCompatActivity implements android.app.Lo
         switch (item.getItemId()) {
             // Respond to a click on the "Insert dummy data" menu option
             case R.id.action_insert_dummy_data:
-                insertPet();
+                Intent intent = new Intent(CatalogActivity.this, EditorActivity.class);
+                startActivity(intent);
                 return true;
             // Respond to a click on the "Delete all entries" menu option
             case R.id.action_delete_all_entries:
